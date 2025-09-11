@@ -2,7 +2,6 @@
 
 CareerRise is a full-stack job portal application built using the MERN stack (MongoDB, Express, React, Node.js). The platform allows users to post jobs, apply for jobs, and manage user profiles. With robust authentication, advanced search features, and a sleek UI, CareerRise offers an efficient job-hunting and recruitment experience.
 
-#### Video Demo - [Watch the Demo video on Google Drive](https://drive.google.com/file/d/11PNUdOQV5As3FYFyPpPaDFFdcUKipwl2/view?usp=drive_link) 
 
 ## Features
 
