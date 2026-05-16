@@ -1,0 +1,71 @@
+name: careerrise
+region: blr
+
+services:
+  - name: backend
+    source_dir: BackEnd
+    github:
+      branch: main
+      deploy_on_push: true
+    build_command: npm install
+    run_command: npm start
+    environment_slug: node-js
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    http_port: 4000
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 10
+      period_seconds: 30
+    routes:
+      - path: /api
+    envs:
+      - key: NODE_ENV
+        scope: RUN_AND_BUILD_TIME
+        value: production
+      - key: PORT
+        scope: RUN_TIME
+        value: "4000"
+      - key: MONGO_URI
+        scope: RUN_TIME
+        type: SECRET
+      - key: SECRET_KEY
+        scope: RUN_TIME
+        type: SECRET
+      - key: FRONTEND_URL
+        scope: RUN_TIME
+        value: ${APP_URL}
+      - key: CLOUD_NAME
+        scope: RUN_TIME
+        type: SECRET
+      - key: API_KEY
+        scope: RUN_TIME
+        type: SECRET
+      - key: API_SECRET
+        scope: RUN_TIME
+        type: SECRET
+
+static_sites:
+  - name: frontend
+    source_dir: /
+    github:
+      branch: main
+      deploy_on_push: true
+    build_command: npm install && npm run build
+    output_dir: dist
+    catchall_document: index.html
+    routes:
+      - path: /
+    envs:
+      - key: VITE_API_USER
+        scope: BUILD_TIME
+        value: ${APP_URL}/api/user
+      - key: VITE_API_COMPANY
+        scope: BUILD_TIME
+        value: ${APP_URL}/api/company
+      - key: VITE_API_JOB
+        scope: BUILD_TIME
+        value: ${APP_URL}/api/job
+      - key: VITE_API_APPLICATION
+        scope: BUILD_TIME
+        value: ${APP_URL}/api/application
