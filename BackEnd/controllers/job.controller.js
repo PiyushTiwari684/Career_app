@@ -22,9 +22,10 @@ export const postJob = async (req,res) =>{
             company:companyId,
             created_by:userId
         });
-        return res.status(201).json({message: "Job posted successfully", job});  
+        return res.status(201).json({message: "Job posted successfully", job});
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Failed to post job" });
     }
 }
 
@@ -46,6 +47,7 @@ export const getJobs = async (req, res) => {
         return res.status(200).json({message: "Jobs fetched successfully.", jobs})
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Failed to fetch jobs" });
     }
 }
 
@@ -60,6 +62,7 @@ export const getJobById = async (req,res) => {
         return res.status(200).json({message: "Job fetched successfully.", job})
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Failed to fetch job" });
     }
 }
 
@@ -74,5 +77,6 @@ export const getJobsByAdmin = async (req, res) => {
         return res.status(200).json({message: "Jobs fetched successfully.", jobs})
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Failed to fetch admin jobs" });
     }
 }

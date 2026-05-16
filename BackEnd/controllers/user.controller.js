@@ -38,8 +38,8 @@ export const register = async (req,res) => {
 
         return res.status(200).json({ message: 'User registered successfully'})
     } catch (error) {
-        console.log(error)
-        res.status(400).json({ message: 'Server Error' });
+        console.error(error);
+        return res.status(500).json({ message: 'Server error during registration' });
     }
 }
 
@@ -72,15 +72,17 @@ export const login = async (req, res) => {
             profile:user.profile
         }
         
+        const isProd = process.env.NODE_ENV === "production";
         return res.status(200).cookie("token", token, {
-            maxAge: 1*24*60*60*1000, 
-            httpOnly:true,
-            secure: true, 
-            sameSite:'none'
+            maxAge: 1*24*60*60*1000,
+            httpOnly: true,
+            secure: isProd,
+            sameSite: isProd ? 'none' : 'lax'
         }).json({message: `WelCome Back ${user.fullname}`,user});
-        
+
     } catch (error) {
-        res.status(500).json({ message: error });
+        console.error(error);
+        return res.status(500).json({ message: "Server error during login" });
     }
 }
 
@@ -89,7 +91,8 @@ export const logout = async (req, res) => {
     try {
         return res.status(200).cookie("token", "", {maxAge: 0}).json({message: 'Logged Out Successfully'})
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return res.status(500).json({ message: "Server error during logout" });
     }
 }
 

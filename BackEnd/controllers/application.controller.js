@@ -33,6 +33,7 @@ export const applyJob = async (req,res) =>{
         return res.status(201).json({message: "Application submitted successfully", application})
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Failed to apply for job" });
     }
 }
 
@@ -47,6 +48,7 @@ export const getApplications = async (req, res) => {
         return res.status(200).json({message: "Applications fetched successfully", applications})
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Failed to fetch applications" });
     }
 }
 
@@ -61,6 +63,7 @@ export const getCandidateApplications = async (req, res) => {
         return res.status(200).json({message: "Applications fetched successfully", application})
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Failed to fetch applicants" });
     }
 }
 
@@ -78,13 +81,14 @@ export const updateApplicationStatus = async (req, res) => {
         if(!application){
             return res.status(404).json({message: "Application not found"})
         }
-        
+
         application.status = status.toLowerCase();
         await application.save();
 
         return res.status(200).json({message: "Application status updated successfully", application})
     } catch (error) {
         console.error(error);
+        return res.status(500).json({ message: "Failed to update application status" });
     }
 }
 

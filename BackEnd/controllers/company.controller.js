@@ -21,7 +21,8 @@ export const registerCompany = async (req,res) => {
 
         return res.status(200).json({message: "Company created successfully.",company})
     } catch (error) {
-        console.log (error);
+        console.error(error);
+        return res.status(500).json({ message: "Failed to register company" });
     }
 }
 
@@ -35,7 +36,8 @@ export const getCompany = async (req, res) => {
         }
         return res.status(200).json({message: "Companies fetched successfully.",companies})
     } catch (error) {
-        console.log (error);
+        console.error(error);
+        return res.status(500).json({ message: "Failed to fetch companies" });
     }
 }
 
@@ -49,7 +51,8 @@ export const getCompanyById = async (req,res) => {
         }
         return res.status(200).json({message: "Companies fetched successfully.",company})
     } catch (error) {
-        console.log (error);
+        console.error(error);
+        return res.status(500).json({ message: "Failed to fetch company" });
     }
 }
 
@@ -77,6 +80,7 @@ export const updateCompany = async (req,res) => {
         }
         return res.status(200).json({message:"Company updated successfully."})
     } catch (error) {
-        console.log (error);
+        console.error(error);
+        return res.status(500).json({ message: "Failed to update company" });
     }
 }
